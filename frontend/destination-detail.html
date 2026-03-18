@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details – Travel Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar"><div class="nav-content">
+        <a href="index.html" class="nav-logo"><i class="fas fa-globe-americas"></i><span>Travel Companion</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html" class="active">Destinations</a></li>
+            <li><a href="trip-planner.html">Trip Planner</a></li>
+            <li><a href="companions.html">Find Companions</a></li>
+            <li class="auth-link"><a href="dashboard.html">Dashboard</a></li>
+            <li class="auth-link"><a href="#" onclick="logout()">Logout</a></li>
+            <li class="guest-link"><a href="login.html">Login</a></li>
+            <li class="guest-link"><a href="register.html">Sign Up</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+            <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </div></nav>
+
+    <!-- Hero with background image -->
+    <div class="detail-hero" id="detailHero">
+        <div class="detail-hero-overlay">
+            <div class="detail-hero-text">
+                <h1 id="detailName">Loading...</h1>
+                <p id="detailCountry"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <section class="detail-content">
+        <div class="container">
+            <div class="detail-grid">
+                <!-- Left: Info -->
+                <div class="detail-info">
+                    <h2>About This Destination</h2>
+                    <p id="detailDescription"></p>
+
+                    <h2>Highlights</h2>
+                    <div class="detail-tags" id="detailHighlights"></div>
+
+                    <h2>Best Time to Visit</h2>
+                    <p id="detailSeason" style="display: flex; align-items: center; gap: 8px;"></p>
+
+                    <h2 style="margin-top: 32px;">Location Map</h2>
+                    <div class="map-container" id="destinationMap"></div>
+                </div>
+
+                <!-- Right: Sidebar -->
+                <div>
+                    <!-- Price Card -->
+                    <div class="panel" style="margin-bottom: 24px;">
+                        <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px;">Trip Estimate</h3>
+                        <div style="text-align: center; margin-bottom: 16px;">
+                            <span style="font-size: 2rem; font-weight: 700; color: var(--primary);" id="detailCost">$0</span>
+                            <span style="color: var(--gray);">/ person</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <i class="fas fa-star" style="color: var(--accent);"></i>
+                            <span id="detailRating" style="font-weight: 600;"></span>
+                        </div>
+                        <a href="trip-planner.html" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <i class="fas fa-calendar-plus"></i> Plan This Trip
+                        </a>
+                    </div>
+
+                    <!-- Weather Widget -->
+                    <div class="panel">
+                        <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px;">Current Weather</h3>
+                        <div id="weatherWidget"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 Travel Companion. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/destinations.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/map.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (!id) { window.location.href = 'destinations.html'; return; }
+
+            try {
+                const dest = await api.get(`/destinations/${id}`);
+                renderDetail(dest);
+            } catch (err) {
+                const sample = getSampleDestinations().find(d => d.id == id);
+                if (sample) renderDetail(sample);
+                else { showToast('Destination not found', 'error'); }
+            }
+        });
+
+        function renderDetail(d) {
+            document.title = `${d.name} – Travel Companion`;
+            document.getElementById('detailHero').style.backgroundImage = `url('${d.imageUrl}')`;
+            document.getElementById('detailName').textContent = d.name;
+            document.getElementById('detailCountry').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${d.country}`;
+            document.getElementById('detailDescription').textContent = d.description;
+            document.getElementById('detailCost').textContent = formatCurrency(d.estimatedCost || 0);
+            document.getElementById('detailRating').textContent = `${d.rating || 4.5} / 5.0 Rating`;
+            document.getElementById('detailSeason').innerHTML = `<i class="fas fa-sun" style="color: var(--accent);"></i> ${d.bestSeason || 'Year Round'}`;
+
+            // Highlights
+            const highlights = (d.highlights || '').split(',').map(h => h.trim()).filter(Boolean);
+            document.getElementById('detailHighlights').innerHTML = highlights.map(h => `<span class="detail-tag">${h}</span>`).join('');
+
+            // Map
+            if (d.latitude && d.longitude) {
+                initMap('destinationMap', d.latitude, d.longitude, 12);
+            }
+
+            // Weather
+            loadWeather(d.name);
+        }
+    </script>
+</body>
+</html>

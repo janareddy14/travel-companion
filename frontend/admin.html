@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard – Travel Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar"><div class="nav-content">
+        <a href="index.html" class="nav-logo"><i class="fas fa-globe-americas"></i><span>Travel Companion</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">Destinations</a></li>
+            <li><a href="admin.html" class="active">Admin</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+            <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </div></nav>
+
+    <div id="adminPage" class="dashboard-page">
+        <div class="container">
+            <div class="dashboard-header">
+                <div><h1><i class="fas fa-shield-alt" style="color: var(--primary);"></i> Admin Dashboard</h1><p style="color: var(--gray);">Manage your platform</p></div>
+            </div>
+
+            <!-- Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-number" id="adminUsers">0</div><div class="stat-label">Users</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-map-marked-alt"></i></div><div class="stat-number" id="adminDestinations">0</div><div class="stat-label">Destinations</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-suitcase"></i></div><div class="stat-number" id="adminTrips">0</div><div class="stat-label">Trips</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-number">98%</div><div class="stat-label">Uptime</div></div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="usersPanel">Users</button>
+                <button class="admin-tab" data-tab="destinationsPanel">Destinations</button>
+                <button class="admin-tab" data-tab="tripsPanel">Trips</button>
+            </div>
+
+            <!-- Users Panel -->
+            <div class="panel admin-panel" id="usersPanel">
+                <h3 class="panel-title">Manage Users</h3>
+                <table class="admin-table"><thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="usersTableBody"><tr><td colspan="6" style="text-align:center;color:var(--gray);">Loading...</td></tr></tbody></table>
+            </div>
+
+            <!-- Destinations Panel -->
+            <div class="panel admin-panel" id="destinationsPanel" style="display:none;">
+                <h3 class="panel-title">Manage Destinations <button class="btn btn-primary btn-sm" onclick="showAddDestinationModal()"><i class="fas fa-plus"></i> Add</button></h3>
+                <table class="admin-table"><thead><tr><th>ID</th><th>Name</th><th>Country</th><th>Cost</th><th>Season</th><th>Rating</th><th>Actions</th></tr></thead><tbody id="destinationsTableBody"><tr><td colspan="7" style="text-align:center;color:var(--gray);">Loading...</td></tr></tbody></table>
+            </div>
+
+            <!-- Trips Panel -->
+            <div class="panel admin-panel" id="tripsPanel" style="display:none;">
+                <h3 class="panel-title">All Trips</h3>
+                <table class="admin-table"><thead><tr><th>ID</th><th>Destination</th><th>Dates</th><th>Budget</th><th>Status</th></tr></thead><tbody id="tripsTableBody"><tr><td colspan="5" style="text-align:center;color:var(--gray);">Loading...</td></tr></tbody></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Destination Modal -->
+    <div class="modal-overlay" id="addDestinationModal">
+        <div class="modal" style="position: relative;">
+            <button class="modal-close" onclick="closeModal('addDestinationModal')">&times;</button>
+            <h3>Add New Destination</h3>
+            <form onsubmit="handleAddDestination(event)">
+                <div class="form-row"><div class="form-group"><label>Name</label><input type="text" id="destName" class="form-control" required></div><div class="form-group"><label>Country</label><input type="text" id="destCountry" class="form-control" required></div></div>
+                <div class="form-group"><label>Description</label><textarea id="destDescription" class="form-control"></textarea></div>
+                <div class="form-group"><label>Image URL</label><input type="text" id="destImage" class="form-control" placeholder="https://..."></div>
+                <div class="form-row"><div class="form-group"><label>Season</label><input type="text" id="destSeason" class="form-control"></div><div class="form-group"><label>Cost ($)</label><input type="number" id="destCost" class="form-control"></div></div>
+                <div class="form-row"><div class="form-group"><label>Latitude</label><input type="number" step="any" id="destLat" class="form-control"></div><div class="form-group"><label>Longitude</label><input type="number" step="any" id="destLng" class="form-control"></div></div>
+                <div class="form-group"><label>Rating</label><input type="number" step="0.1" min="0" max="5" id="destRating" class="form-control" value="4.5"></div>
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;"><i class="fas fa-plus"></i> Add Destination</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer" style="margin-top:60px;"><div class="container"><div class="footer-bottom"><p>&copy; 2026 Travel Companion.</p></div></div></footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login – Travel Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar"><div class="nav-content">
+        <a href="index.html" class="nav-logo"><i class="fas fa-globe-americas"></i><span>Travel Companion</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">Destinations</a></li>
+            <li><a href="trip-planner.html">Trip Planner</a></li>
+            <li><a href="companions.html">Find Companions</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+            <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </div></nav>
+
+    <section class="auth-page">
+        <div class="auth-card">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <i class="fas fa-globe-americas" style="font-size: 2.5rem; color: var(--primary);"></i>
+            </div>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Login to your Travel Companion account</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+            </div>
+
+            <div style="margin-top: 20px; padding: 16px; background: var(--gradient-card); border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--gray);">
+                <p><strong>Demo Accounts:</strong></p>
+                <p>Admin: <code>admin</code> / <code>admin123</code></p>
+                <p>User: <code>traveler</code> / <code>password</code></p>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner – Travel Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar"><div class="nav-content">
+        <a href="index.html" class="nav-logo"><i class="fas fa-globe-americas"></i><span>Travel Companion</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">Destinations</a></li>
+            <li><a href="trip-planner.html" class="active">Trip Planner</a></li>
+            <li><a href="companions.html">Find Companions</a></li>
+            <li class="auth-link"><a href="dashboard.html">Dashboard</a></li>
+            <li class="auth-link"><a href="#" onclick="logout()">Logout</a></li>
+            <li class="guest-link"><a href="login.html">Login</a></li>
+            <li class="guest-link"><a href="register.html">Sign Up</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+            <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </div></nav>
+
+    <section class="planner-section">
+        <div class="container">
+            <div class="planner-form">
+                <h2><i class="fas fa-route" style="color: var(--primary);"></i> Plan Your Trip</h2>
+                <p style="text-align: center; color: var(--gray); margin-bottom: 32px;">Fill in the details below and we'll estimate your travel costs</p>
+
+                <form id="tripPlannerForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Destination</label>
+                        <select id="tripDestination" class="form-control" required>
+                            <option value="">Select a destination...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="far fa-calendar"></i> Start Date</label>
+                            <input type="date" id="startDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="far fa-calendar-check"></i> End Date</label>
+                            <input type="date" id="endDate" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-wallet"></i> Budget (USD)</label>
+                            <input type="number" id="budget" class="form-control" placeholder="e.g., 3000" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-hiking"></i> Travel Type</label>
+                            <select id="travelType" class="form-control">
+                                <option value="SOLO">Solo</option>
+                                <option value="COUPLE">Couple</option>
+                                <option value="FAMILY">Family</option>
+                                <option value="ADVENTURE">Adventure</option>
+                                <option value="GROUP">Group</option>
+                                <option value="BUSINESS">Business</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-sticky-note"></i> Notes (optional)</label>
+                        <textarea id="tripNotes" class="form-control" placeholder="Any specific requirements or interests..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-calculator"></i> Estimate & Plan Trip
+                    </button>
+                </form>
+
+                <!-- Results -->
+                <div id="tripResult" class="result-card">
+                    <h3><i class="fas fa-chart-bar"></i> Trip Cost Estimate</h3>
+                    <div class="estimate-grid">
+                        <div class="estimate-item">
+                            <div class="value" id="estDays">0 days</div>
+                            <div class="label">Duration</div>
+                        </div>
+                        <div class="estimate-item">
+                            <div class="value" id="estAccommodation">$0</div>
+                            <div class="label">Accommodation</div>
+                        </div>
+                        <div class="estimate-item">
+                            <div class="value" id="estFood">$0</div>
+                            <div class="label">Food & Dining</div>
+                        </div>
+                        <div class="estimate-item">
+                            <div class="value" id="estTransport">$0</div>
+                            <div class="label">Transport</div>
+                        </div>
+                        <div class="estimate-item">
+                            <div class="value" id="estActivities">$0</div>
+                            <div class="label">Activities</div>
+                        </div>
+                        <div class="estimate-item" style="background: var(--gradient-primary); color: #fff; border-radius: var(--radius-sm);">
+                            <div class="value" id="estTotal" style="color: #fff;">$0</div>
+                            <div class="label" style="color: rgba(255,255,255,0.8);">Total Estimated</div>
+                        </div>
+                    </div>
+                    <div id="budgetStatus" style="margin-top: 20px; font-size: 1rem; font-weight: 500;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" style="margin-top: 60px;">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 Travel Companion. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/destinations.js"></script>
+    <script src="js/trip-planner.js"></script>
+</body>
+</html>

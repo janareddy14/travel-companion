@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard – Travel Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar"><div class="nav-content">
+        <a href="index.html" class="nav-logo"><i class="fas fa-globe-americas"></i><span>Travel Companion</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">Destinations</a></li>
+            <li><a href="trip-planner.html">Trip Planner</a></li>
+            <li><a href="companions.html">Find Companions</a></li>
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+            <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </div></nav>
+
+    <div id="dashboardPage" class="dashboard-page">
+        <div class="container">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Welcome, <span class="dash-username" style="color: var(--primary);"></span>! 👋</h1>
+                    <p style="color: var(--gray);">Here's your travel overview</p>
+                </div>
+                <a href="trip-planner.html" class="btn btn-primary"><i class="fas fa-plus"></i> Plan New Trip</a>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-suitcase-rolling"></i></div><div class="stat-number" id="statTrips">0</div><div class="stat-label">Total Trips</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-globe"></i></div><div class="stat-number" id="statCountries">0</div><div class="stat-label">Countries</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-number">0</div><div class="stat-label">Completed</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-heart"></i></div><div class="stat-number">0</div><div class="stat-label">Favorites</div></div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="panel">
+                    <h3 class="panel-title">My Trips <a href="trip-planner.html" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> New</a></h3>
+                    <div id="myTrips"><p style="color: var(--gray); text-align: center; padding: 32px;">Loading trips...</p></div>
+                </div>
+                <div>
+                    <div class="panel" style="text-align: center; margin-bottom: 24px;">
+                        <div class="companion-avatar" style="width: 80px; height: 80px; font-size: 2rem; margin: 0 auto 16px;"><span class="dash-username" style="color:#fff;"></span></div>
+                        <h3 class="dash-username"></h3>
+                        <p class="dash-email" style="color: var(--gray); font-size: 0.9rem;"></p>
+                    </div>
+                    <div class="panel">
+                        <h3 class="panel-title">Quick Checklist</h3>
+                        <div id="checklistItems"></div>
+                        <div class="checklist-add">
+                            <input type="text" id="newChecklistItem" class="form-control" placeholder="Add item..." style="padding: 8px 12px;">
+                            <button class="btn btn-primary btn-sm" onclick="addLocalChecklistItem()"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" style="margin-top: 60px;"><div class="container"><div class="footer-bottom"><p>&copy; 2026 Travel Companion.</p></div></div></footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { renderLocalChecklist(); });
+        function renderLocalChecklist() {
+            const c = document.getElementById('checklistItems'); if (!c) return;
+            const items = JSON.parse(localStorage.getItem('checklist') || 'null') || getDefaultChecklist();
+            c.innerHTML = items.map((item, i) => `<div class="checklist-item ${item.completed?'completed':''}"><input type="checkbox" ${item.completed?'checked':''} onchange="toggleLocalItem(${i})"><label>${item.itemName}</label></div>`).join('');
+        }
+        function toggleLocalItem(i) { const items = JSON.parse(localStorage.getItem('checklist') || 'null') || getDefaultChecklist(); items[i].completed = !items[i].completed; localStorage.setItem('checklist', JSON.stringify(items)); renderLocalChecklist(); }
+        function addLocalChecklistItem() { const input = document.getElementById('newChecklistItem'); if (!input.value.trim()) return; const items = JSON.parse(localStorage.getItem('checklist') || 'null') || getDefaultChecklist(); items.push({itemName: input.value.trim(), completed: false}); localStorage.setItem('checklist', JSON.stringify(items)); input.value = ''; renderLocalChecklist(); showToast('Item added!'); }
+    </script>
+</body>
+</html>
