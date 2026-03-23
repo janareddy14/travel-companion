@@ -56,6 +56,11 @@
 
                     <h2 style="margin-top: 32px;">Location Map</h2>
                     <div class="map-container" id="destinationMap"></div>
+
+                    <h2 style="margin-top: 32px;">Travel Companions Heading Here</h2>
+                    <div id="destinationCompanions" style="margin-top: 16px;">
+                        Loading companions...
+                    </div>
                 </div>
 
                 <!-- Right: Sidebar -->
@@ -135,6 +140,29 @@
 
             // Weather
             loadWeather(d.name);
+
+            // Companions
+            loadDestinationCompanions(d.name);
+        }
+
+        async function loadDestinationCompanions(destinationName) {
+            const container = document.getElementById('destinationCompanions');
+            try {
+                const companions = await api.get(`/companions/search?destination=${destinationName}`);
+                if (companions.length === 0) {
+                    container.innerHTML = '<p style="color: var(--gray);">No travelers are currently heading here. Be the first!</p>';
+                    return;
+                }
+                container.innerHTML = companions.map(c => `
+                    <div class="panel fade-in" style="margin-bottom: 16px; padding: 16px;">
+                        <h4 style="margin: 0 0 4px; color: var(--text);">${c.username || 'Traveler'}</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--gray);"><i class="far fa-calendar"></i> ${c.travelDates || 'Flexible dates'}</p>
+                        <p style="margin: 8px 0 0; font-size: 0.95rem;">${c.bio || ''}</p>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = '<p style="color: var(--gray);">Could not load companions.</p>';
+            }
         }
     </script>
 </body>

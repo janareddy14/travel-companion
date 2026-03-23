@@ -13,6 +13,7 @@ public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final DestinationRepository destinationRepository;
+    private final TravelCompanionRepository companionRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -40,6 +41,27 @@ public class DataInitializer implements CommandLineRunner {
                     .bio("Passionate traveler exploring the world!")
                     .build();
             userRepository.save(user);
+        }
+
+        if (companionRepository.count() == 0) {
+            userRepository.findByUsername("traveler").ifPresent(travelerUser -> {
+                companionRepository.save(TravelCompanion.builder()
+                        .user(travelerUser).destinationName("Paris").travelDates("June 2026")
+                        .interests("Photography,Art,Food")
+                        .bio("Looking for a travel buddy to explore Paris together!").build());
+                companionRepository.save(TravelCompanion.builder()
+                        .user(travelerUser).destinationName("Tokyo").travelDates("April 2026")
+                        .interests("Culture,Technology,Anime")
+                        .bio("First time in Japan, would love company!").build());
+                companionRepository.save(TravelCompanion.builder()
+                        .user(travelerUser).destinationName("Bali").travelDates("July 2026")
+                        .interests("Surfing,Yoga,Adventure")
+                        .bio("Adventure enthusiast looking for like-minded travelers.").build());
+                companionRepository.save(TravelCompanion.builder()
+                        .user(travelerUser).destinationName("Santorini").travelDates("August 2026")
+                        .interests("Photography,Wine,Sunsets")
+                        .bio("Planning a relaxing trip to Greek islands.").build());
+            });
         }
 
         // Seed destinations

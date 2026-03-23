@@ -45,11 +45,11 @@ function renderDestinations(destinations) {
     }
 
     grid.innerHTML = destinations.map(d => `
-        <div class="card fade-in visible" onclick="viewDestination(${d.id})">
+        <a href="destination-detail.html?id=${d.id}" class="card fade-in visible" style="display: block; text-decoration: none;">
             <div class="card-image">
                 <img src="${d.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800'}" alt="${d.name}" loading="lazy">
                 <span class="card-badge">${d.bestSeason || 'Year Round'}</span>
-                <button class="card-favorite" onclick="event.stopPropagation(); toggleFavorite(this)">
+                <button class="card-favorite" onclick="event.preventDefault(); event.stopPropagation(); toggleFavorite(this)">
                     <i class="far fa-heart"></i>
                 </button>
             </div>
@@ -62,7 +62,7 @@ function renderDestinations(destinations) {
                     <span class="card-rating"><i class="fas fa-star"></i> ${d.rating || '4.5'}</span>
                 </div>
             </div>
-        </div>
+        </a>
     `).join('');
 }
 
@@ -79,9 +79,7 @@ function filterDestinations() {
     renderDestinations(filtered);
 }
 
-function viewDestination(id) {
-    window.location.href = `destination-detail.html?id=${id}`;
-}
+// ViewDestination function removed as we now use anchor tags
 
 function toggleFavorite(btn) {
     btn.classList.toggle('active');

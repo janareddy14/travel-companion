@@ -38,6 +38,7 @@ public class Trip {
     private String notes;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private TripStatus status = TripStatus.PLANNED;
 
     public enum TravelType {

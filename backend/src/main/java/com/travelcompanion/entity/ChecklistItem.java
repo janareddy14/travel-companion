@@ -22,5 +22,6 @@ public class ChecklistItem {
     @Column(nullable = false)
     private String itemName;
 
+    @Builder.Default
     private boolean completed = false;
 }

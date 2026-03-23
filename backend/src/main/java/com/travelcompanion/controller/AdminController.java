@@ -2,7 +2,6 @@ package com.travelcompanion.controller;
 
 import com.travelcompanion.dto.DestinationDTO;
 import com.travelcompanion.dto.TripResponse;
-import com.travelcompanion.entity.User;
 import com.travelcompanion.repository.UserRepository;
 import com.travelcompanion.service.DestinationService;
 import com.travelcompanion.service.TripService;
