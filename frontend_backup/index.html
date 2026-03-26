@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Travel Companion - Your smart travel planning platform. Discover destinations, plan trips, find travel buddies, and explore the world.">
+    <title>Travel Companion – Smart Travel Planning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>Travel Companion</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="trip-planner.html">Trip Planner</a></li>
+                <li><a href="companions.html">Find Companions</a></li>
+                <li class="auth-link"><a href="dashboard.html">Dashboard</a></li>
+                <li class="auth-link"><a href="#" onclick="logout()">Logout</a></li>
+                <li class="guest-link"><a href="login.html">Login</a></li>
+                <li class="guest-link"><a href="register.html">Sign Up</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <button class="nav-toggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Explore The World With <span class="highlight">Travel Companion</span></h1>
+                <p>Plan unforgettable trips, discover stunning destinations, find travel buddies, and create memories that last a lifetime. Your adventure starts here.</p>
+                <div class="hero-buttons">
+                    <a href="destinations.html" class="btn btn-primary btn-lg"><i class="fas fa-compass"></i> Explore Destinations</a>
+                    <a href="trip-planner.html" class="btn btn-secondary btn-lg" style="border-color: #fff; color: #fff;"><i class="fas fa-map-marked-alt"></i> Plan a Trip</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="number">500+</span>
+                        <span class="label">Destinations</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="number">10K+</span>
+                        <span class="label">Happy Travelers</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="number">50+</span>
+                        <span class="label">Countries</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <h3><i class="fas fa-search"></i> Quick Search</h3>
+                    <div class="search-group">
+                        <div class="search-input">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" placeholder="Where do you want to go?" id="heroSearch">
+                        </div>
+                        <div class="search-input">
+                            <i class="far fa-calendar"></i>
+                            <input type="date" id="heroDate">
+                        </div>
+                        <div class="search-input">
+                            <i class="fas fa-users"></i>
+                            <select>
+                                <option>Solo Travel</option>
+                                <option>Couple</option>
+                                <option>Family</option>
+                                <option>Group Adventure</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="searchFromHero()">
+                            <i class="fas fa-search"></i> Search Destinations
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Destinations -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Popular Destinations</h2>
+            <p class="section-subtitle">Discover the world's most breathtaking places handpicked for you</p>
+            <div id="featuredDestinations" class="destinations-grid">
+                <!-- Loaded dynamically -->
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="destinations.html" class="btn btn-primary"><i class="fas fa-th"></i> View All Destinations</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Travel Companion?</h2>
+            <p class="section-subtitle">Everything you need for the perfect trip, all in one place</p>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>Trip Planner</h3>
+                    <p>Plan your perfect trip with smart cost estimates and itinerary suggestions</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>Find Companions</h3>
+                    <p>Connect with fellow travelers heading to the same destination</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-cloud-sun"></i></div>
+                    <h3>Weather Forecast</h3>
+                    <p>Check real-time weather conditions at your destination</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-map"></i></div>
+                    <h3>Interactive Maps</h3>
+                    <p>Explore destinations with detailed interactive maps and POIs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready for Your Next Adventure?</h2>
+            <p>Join thousands of travelers who plan their trips with Travel Companion</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="register.html" class="btn btn-primary btn-lg"><i class="fas fa-rocket"></i> Get Started Free</a>
+                <a href="destinations.html" class="btn btn-secondary btn-lg" style="border-color: #fff; color: #fff;">Browse Destinations</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-globe-americas"></i> Travel Companion</h3>
+                    <p>Your smart travel planning platform. Discover, plan, and explore the world with ease.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="trip-planner.html">Trip Planner</a></li>
+                        <li><a href="companions.html">Find Companions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Travel Companion. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/destinations.js"></script>
+    <script>
+        // Load featured destinations on homepage
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('featuredDestinations');
+            try {
+                const destinations = await api.get('/destinations');
+                const featured = destinations.slice(0, 6);
+                renderFeatured(featured);
+            } catch (err) {
+                renderFeatured(getSampleDestinations());
+            }
+        });
+
+        function renderFeatured(destinations) {
+            const grid = document.getElementById('featuredDestinations');
+            grid.innerHTML = destinations.map(d => `
+                <a href="destination-detail.html?id=${d.id}" class="card fade-in visible" style="display: block; text-decoration: none;">
+                    <div class="card-image">
+                        <img src="${d.imageUrl}" alt="${d.name}" loading="lazy">
+                        <span class="card-badge">${d.bestSeason || 'Year Round'}</span>
+                        <button class="card-favorite" onclick="event.preventDefault(); event.stopPropagation(); toggleFavorite(this)"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${d.name}</h3>
+                        <p class="card-location"><i class="fas fa-map-marker-alt"></i> ${d.country}</p>
+                        <p class="card-description">${d.description || ''}</p>
+                        <div class="card-footer">
+                            <span class="card-price">From $${d.estimatedCost || '---'}</span>
+                            <span class="card-rating"><i class="fas fa-star"></i> ${d.rating || '4.5'}</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function searchFromHero() {
+            const query = document.getElementById('heroSearch').value;
+            if (query) {
+                window.location.href = `destinations.html?search=${encodeURIComponent(query)}`;
+            } else {
+                window.location.href = 'destinations.html';
+            }
+        }
+    </script>
+</body>
+</html>
