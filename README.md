@@ -1,6 +1,6 @@
 # 🌍 Travel Companion – Smart Travel Planning Platform   ( https://travel-companion-mocha.vercel.app/ )
 
-A full-stack travel planning web application built with **Java Spring Boot** and **HTML/CSS/JavaScript (TailwindCSS)**.
+A full-stack travel planning web application built with **Java Spring Boot** and **ReactJS**.
 
 ## ✨ Features
 
@@ -49,8 +49,6 @@ companion/
 │   # 10 JS modules
 └── README.md
 ```
-
-## 🚀 Quick Start
 
 
 
