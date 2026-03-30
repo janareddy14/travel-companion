@@ -56,7 +56,6 @@ export default function Login() {
 
         <div style={{ marginTop: '20px', padding: '16px', background: 'var(--gradient-card)', borderRadius: 'var(--radius-sm)', fontSize: '0.85rem', color: 'var(--gray)' }}>
           <p><strong>Demo Accounts:</strong></p>
-          <p>Admin: <code>admin</code> / <code>admin123</code></p>
           <p>User: <code>traveler</code> / <code>password</code></p>
         </div>
       </div>
