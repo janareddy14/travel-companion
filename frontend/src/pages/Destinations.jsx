@@ -20,7 +20,7 @@ export default function Destinations() {
   useEffect(() => {
     (async () => {
       try {
-        const data = await api.get('/destinations');
+        const data = await api.get('/api/destinations');
         setAllDestinations(data);
       } catch {
         setAllDestinations(getSampleDestinations());
