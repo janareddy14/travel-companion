@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
   }, [user]);
 
   const login = useCallback(async (username, password) => {
-    const data = await api.post('/auth/login', { username, password });
+    const data = await api.post('/api/auth/login', { username, password });
     const userData = {
       userId: data.userId,
       username: data.username,
