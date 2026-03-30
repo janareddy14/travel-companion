@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   const loadTrips = async () => {
     try {
-      const data = await api.get('/trips');
+      const data = await api.get('/api/trips');
       setTrips(data);
     } catch {
       setTrips([]);
