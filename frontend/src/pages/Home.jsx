@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const data = await api.get('/destinations');
+        const data = await api.get('/api/destinations');
         setDestinations(data.slice(0, 6));
       } catch {
         setDestinations(getSampleDestinations());
