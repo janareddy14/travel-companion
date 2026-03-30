@@ -42,7 +42,7 @@ export default function DestinationDetail() {
     if (!id) { navigate('/destinations'); return; }
     (async () => {
       try {
-        const data = await api.get(`/destinations/${id}`);
+        const data = await api.get(`/api/destinations/${id}`);
         setDest(data);
       } catch {
         const sample = getSampleDestinations().find((d) => d.id == id);
