@@ -21,7 +21,7 @@ export default function Companions() {
 
   const loadCompanions = async () => {
     try {
-      const data = await api.get('/companions');
+      const data = await api.get('/api/companions');
       setCompanions(data);
     } catch {
       setCompanions(getSampleCompanions());
