@@ -21,7 +21,7 @@ A full-stack travel planning web application built with **Java Spring Boot** and
 |-------|-----------|
 | Backend | Java 17, Spring Boot 3.2, Spring Security, JPA |
 | Auth | JWT (jjwt 0.12.5), BCrypt |
-| Database | H2 (dev), MySQL (prod) |
+| Database | H2 (dev), Postgres (prod) |
 | Frontend | React|
 | Maps | Leaflet.js |
 | Weather | OpenWeather API |
